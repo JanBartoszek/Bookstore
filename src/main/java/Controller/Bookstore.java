@@ -9,10 +9,12 @@ import java.util.List;
 
 public class Bookstore {
 
-    List products = new ArrayList<Product>;
-    List users = new ArrayList<User>;
-    List orders = new ArrayList<Order>;
+    public static List<Product> products = new ArrayList<Product>();
+    List users = new ArrayList<User>();
+    List orders = new ArrayList<Order>();
 
-
+    private void addBook(Product product){
+        products.add(product);
+    }
 
 }

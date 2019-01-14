@@ -12,6 +12,18 @@ public abstract class Product {
         this.value = value;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
     public void setValue(int value) {
         this.value = value;
     }
