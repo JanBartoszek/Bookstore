@@ -1,17 +1,17 @@
-package Model.Users;
+package Controller;
 
-import Controller.Bookstore;
 import Model.Orders.Order;
 import Model.Products.Book;
 import Model.Products.Movie;
 import Model.Products.Product;
+import Model.Users.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+class BookstoreTest {
 
     private Bookstore bookstore;
     private Product book1;
@@ -21,9 +21,10 @@ class UserTest {
     private User user1;
     private User user2;
     private Order userOrder1;
+    private Order userOrder2;
 
     @BeforeEach
-    void setUp() {
+    void setUp(){
         bookstore = new Bookstore();
         book1 = new Book("Gwiezdne Wojny", 10, 10, 100);
         movie1 = new Movie("Władca Pierścieni", 15, 10, 180);
@@ -43,6 +44,7 @@ class UserTest {
 
         user2 = new User("daniel", true, bookstore);
         user2.createNewOrder();
+        userOrder2 = user2.getCurrentOrder();
         user2.addToCurrentOrder(book1, 5);
         user2.addToCurrentOrder(movie1, 5);
         user2.addToCurrentOrder(book2, 50);
@@ -50,7 +52,7 @@ class UserTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown(){
         bookstore = null;
         book1 = null;
         movie1 = null;
@@ -59,51 +61,28 @@ class UserTest {
         user1 = null;
         userOrder1 = null;
         user2 = null;
+        userOrder2 = null;
         Bookstore.products.clear();
     }
 
     @Test
-    void testOneUserCommitingOrder() {
+    void basicCase() {
 
-        user1.commitCurrentOrder();
+        bookstore.handleUserOrder(userOrder1);
 
-        assertEquals(user1.getOrderHistory().size(), 1);
-        assertEquals(user1.getOrderHistory().get(1), userOrder1);
-        assertNull(user1.getCurrentOrder());
-
+        assertEquals(Bookstore.products.get(0).getStock(), 5);
+        assertEquals(Bookstore.products.get(1).getStock(), 10);
     }
 
     @Test
-    void testNonAdminUserUsingAdminAdding() {
+    void twoUsers(){
 
-        user1.addProduct(new Book("test", 1, 1, 1));
+        bookstore.handleUserOrder(userOrder1);
+        bookstore.handleUserOrder(userOrder2);
 
-        assertEquals(Bookstore.products.size(), 4);
+        assertEquals(Bookstore.products.get(0).getStock(), 0);
+        assertEquals(Bookstore.products.get(1).getStock(), 5);
+        assertEquals(Bookstore.products.get(2).getStock(), 50);
+        assertEquals(Bookstore.products.get(3).getStock(), 100);
     }
-
-    @Test
-    void testAdminUserUsingAdminAdding() {
-
-        user2.addProduct(new Book("test", 1, 1, 1));
-
-        assertEquals(Bookstore.products.size(), 5);
-    }
-
-    @Test
-    void testNonAdminUserUsingAdminRemoval() {
-
-        user1.removeProduct(book2);
-
-        assertEquals(Bookstore.products.size(), 4);
-    }
-
-    @Test
-    void testAdminUserUsingAdminRemoval() {
-
-        user2.removeProduct(book2);
-
-        assertEquals(Bookstore.products.size(), 3);
-    }
-
-
 }

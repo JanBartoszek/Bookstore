@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Model.Users.User</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1307.0">Controller.Main</node>
+    <node x="823.7331018518519" y="386.0">Model.Orders.Order</node>
+    <node x="10.5" y="244.0">Model.Products.Book</node>
+    <node x="532.5" y="244.0">Model.Products.Game</node>
+    <node x="717.1069444444444" y="660.0">Controller.Bookstore</node>
+    <node x="840.3782407407407" y="232.0">Model.Orders.OrderDetail</node>
+    <node x="760.5247685185185" y="916.0">Model.Users.User</node>
+    <node x="268.49999999999994" y="244.0">Model.Products.Movie</node>
+    <node x="477.24999999999994" y="0.0">Model.Products.Product</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Model.Users.User" target="Controller.Bookstore">
+      <point x="-70.3125" y="-173.0" />
+      <point x="877.7122685185185" y="896.0" />
+      <point x="866.7319444444444" y="896.0" />
+      <point x="-49.875" y="88.0" />
+    </edge>
+    <edge source="Model.Users.User" target="Model.Products.Product">
+      <point x="-164.0625" y="-173.0" />
+      <point x="783.9622685185185" y="896.0" />
+      <point x="0.0" y="896.0" />
+      <point x="0.0" y="172.0" />
+      <point x="487.74999999999994" y="172.0" />
+      <point x="-105.0" y="76.0" />
+    </edge>
+    <edge source="Model.Orders.Order" target="Model.Orders.OrderDetail">
+      <point x="59.499999999999886" y="-112.0" />
+      <point x="1121.2331018518516" y="366.0" />
+      <point x="1054.7532407407407" y="366.0" />
+      <point x="91.875" y="52.0" />
+    </edge>
+    <edge source="Controller.Bookstore" target="Model.Orders.Order">
+      <point x="79.79999999999995" y="-88.0" />
+      <point x="996.4069444444443" y="640.0" />
+      <point x="942.7331018518519" y="640.0" />
+      <point x="-119.0" y="112.0" />
+    </edge>
+    <edge source="Model.Orders.OrderDetail" target="Model.Products.Product">
+      <point x="-61.25" y="-52.0" />
+      <point x="901.6282407407407" y="192.0" />
+      <point x="655.75" y="192.0" />
+      <point x="63.0" y="76.0" />
+    </edge>
+    <edge source="Model.Orders.Order" target="Controller.Bookstore">
+      <point x="-39.66666666666663" y="112.0" />
+      <point x="1022.0664351851852" y="640.0" />
+      <point x="1076.2069444444444" y="640.0" />
+      <point x="159.6" y="-88.0" />
+    </edge>
+    <edge source="Model.Orders.Order" target="Model.Products.Product">
+      <point x="178.4999999999999" y="-112.0" />
+      <point x="1240.2331018518516" y="356.0" />
+      <point x="1095.8782407407407" y="356.0" />
+      <point x="1095.8782407407407" y="172.0" />
+      <point x="697.75" y="172.0" />
+      <point x="105.0" y="76.0" />
+    </edge>
+    <edge source="Controller.Bookstore" target="Model.Orders.OrderDetail">
+      <point x="-79.80000000000007" y="-88.0" />
+      <point x="836.8069444444443" y="640.0" />
+      <point x="795.0" y="640.0" />
+      <point x="795.0" y="366.0" />
+      <point x="871.0032407407407" y="366.0" />
+      <point x="-91.875" y="52.0" />
+    </edge>
+    <edge source="Model.Products.Movie" target="Model.Products.Product">
+      <point x="-61.0" y="-40.0" />
+      <point x="329.49999999999994" y="202.0" />
+      <point x="550.75" y="202.0" />
+      <point x="-42.0" y="76.0" />
+    </edge>
+    <edge source="Model.Products.Book" target="Model.Products.Product">
+      <point x="59.5" y="-40.0" />
+      <point x="189.0" y="192.0" />
+      <point x="529.75" y="192.0" />
+      <point x="-63.0" y="76.0" />
+    </edge>
+    <edge source="Controller.Bookstore" target="Model.Products.Product">
+      <point x="-159.60000000000014" y="-88.0" />
+      <point x="757.0069444444442" y="640.0" />
+      <point x="784.0" y="640.0" />
+      <point x="784.0" y="202.0" />
+      <point x="634.75" y="202.0" />
+      <point x="42.0" y="76.0" />
+    </edge>
+    <edge source="Controller.Bookstore" target="Model.Users.User">
+      <point x="49.87499999999997" y="88.0" />
+      <point x="966.4819444444444" y="856.0" />
+      <point x="924.5872685185185" y="856.0" />
+      <point x="-23.4375" y="-173.0" />
+    </edge>
+    <edge source="Model.Products.Game" target="Model.Products.Product">
+      <point x="60.25" y="-40.0" />
+      <point x="713.25" y="212.0" />
+      <point x="613.75" y="212.0" />
+      <point x="21.0" y="76.0" />
+    </edge>
+    <edge source="Model.Users.User" target="Model.Orders.Order">
+      <point x="117.1875" y="-173.0" />
+      <point x="1065.2122685185186" y="886.0" />
+      <point x="1137.6069444444443" y="886.0" />
+      <point x="1137.6069444444443" y="630.0" />
+      <point x="1180.7331018518516" y="630.0" />
+      <point x="118.99999999999989" y="112.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="658.9999999999999" y="518.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

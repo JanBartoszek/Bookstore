@@ -9,7 +9,7 @@ import java.util.List;
 public class Order {
 
     private List<OrderDetail> orderedProducts = new ArrayList<>();
-    private boolean isFinished;
+    private boolean isFinished = false;
 
     public static Order createNewOrder() {
         return new Order();
@@ -22,7 +22,11 @@ public class Order {
     public boolean isFinished() {
         return isFinished;
     }
-    
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
     public void addToBasket(Product product, int quantity) {
 
         int summedQuantityOfSameProducts;
@@ -49,13 +53,13 @@ public class Order {
 
     private int checkSummedQuantity(Product product, int quantity) {
 
-        if (orderedProducts.isEmpty()){
+        if (orderedProducts.isEmpty()) {
             return quantity;
         }
 
         for (OrderDetail detail : orderedProducts) {
             if (detail.getProduct().equals(product)) {
-                 return detail.getQuantity() + quantity;
+                return detail.getQuantity() + quantity;
             }
         }
         return quantity;
@@ -80,11 +84,11 @@ public class Order {
     public void removeFromBasket(Product product, int quantity) {
 
         int qunatityAfterRemoval;
-        
+
         for (OrderDetail detail : orderedProducts) {
             if (detail.getProduct().equals(product)) {
                 qunatityAfterRemoval = detail.getQuantity() - quantity;
-                if (qunatityAfterRemoval <= 0){
+                if (qunatityAfterRemoval <= 0) {
                     orderedProducts.remove(detail);
                     return;
                 }

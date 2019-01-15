@@ -19,15 +19,15 @@ class OrderTest {
     private User user;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         bookstore = new Bookstore();
         book1 = new Book("Gwiezdne Wojny", 10, 10, 100);
         movie1 = new Movie("Władca Pierścieni", 15, 10, 180);
-        user = new User("janek", false);
+        user = new User("janek", false, bookstore);
     }
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         bookstore = null;
         book1 = null;
         movie1 = null;
@@ -84,7 +84,7 @@ class OrderTest {
     }
 
     @Test
-    void addOneItemThatExceedsStock(){
+    void addOneItemThatExceedsStock() {
 
         Bookstore.products.add(book1);
 
@@ -95,7 +95,7 @@ class OrderTest {
     }
 
     @Test
-    void addOneItemThatHasQuantitySmallerThanStockAndSecondThatExceedsStock(){
+    void addOneItemThatHasQuantitySmallerThanStockAndSecondThatExceedsStock() {
 
         Bookstore.products.add(book1);
 
@@ -109,7 +109,7 @@ class OrderTest {
     }
 
     @Test
-    void removeOneItemFromBasketIfValueAfterRemovalIsZero(){
+    void removeOneItemFromBasketIfValueAfterRemovalIsZero() {
 
         Bookstore.products.add(book1);
 
@@ -123,7 +123,7 @@ class OrderTest {
     }
 
     @Test
-    void removeOneItemFromBasketIfValueAfterRemovalIsBelowZero(){
+    void removeOneItemFromBasketIfValueAfterRemovalIsBelowZero() {
 
         Bookstore.products.add(book1);
 
@@ -137,7 +137,7 @@ class OrderTest {
     }
 
     @Test
-    void removeOneItemFromBasketIfValueAfterRemovalIsAboveZero(){
+    void removeOneItemFromBasketIfValueAfterRemovalIsAboveZero() {
 
         Bookstore.products.add(book1);
 
@@ -153,7 +153,7 @@ class OrderTest {
     }
 
     @Test
-    void removeFewItems(){
+    void removeFewItems() {
 
         Bookstore.products.add(book1);
         Bookstore.products.add(movie1);
@@ -170,7 +170,6 @@ class OrderTest {
         assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 1);
 
     }
-
 
 
 }
