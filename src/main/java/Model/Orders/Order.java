@@ -1,7 +1,6 @@
 package Model.Orders;
 
 import Controller.Bookstore;
-import Model.Products.Book;
 import Model.Products.Product;
 
 import java.util.ArrayList;
@@ -24,17 +23,17 @@ public class Order {
     public boolean isFinished() {
         return isFinished;
     }
-
-
-
+    
     public void addToBasket(Product product, int quantity) {
 
-        boolean desiredQuantityOk;
+        int summedQuantity;
+        boolean quantitySmallerThanStock;
         boolean isInBasket;
 
-        desiredQuantityOk = checkIfDesiredQuantityInStock(product, quantity);
+        summedQuantity = checkSummedQuantity(product, quantity);
+        quantitySmallerThanStock = checkIfDesiredQuantitySmallerThanStock(product, summedQuantity);
 
-        if (!desiredQuantityOk) {
+        if (!quantitySmallerThanStock) {
             return;
         }
 
@@ -49,6 +48,16 @@ public class Order {
         }
     }
 
+    private int checkSummedQuantity(Product product, int quantity) {
+
+        for (OrderDetail detail : orderedProducts) {
+            if (detail.getProduct().equals(product)) {
+                 return detail.getQuantity() + quantity;
+            }
+        }
+        return 0;
+    }
+
     private boolean updateIfAlreadyInBasket(Product product, int quantity) {
         for (OrderDetail detail : orderedProducts) {
             if (detail.getProduct().equals(product)) {
@@ -59,9 +68,9 @@ public class Order {
         return false;
     }
 
-    public boolean checkIfDesiredQuantityInStock(Product product, int quantity) {
-        int desiredIndex = Bookstore.products.indexOf(product);
-        if (Bookstore.products.get(desiredIndex).getStock() > quantity) {
+    public boolean checkIfDesiredQuantitySmallerThanStock(Product product, int quantity) {
+        int index = Bookstore.products.indexOf(product);
+        if (Bookstore.products.get(index).getStock() >= quantity) {
             return true;
         }
         return false;
