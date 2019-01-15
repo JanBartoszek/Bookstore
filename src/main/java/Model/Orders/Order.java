@@ -8,12 +8,11 @@ import java.util.List;
 
 public class Order {
 
-    private List<OrderDetail> orderedProducts = new ArrayList<OrderDetail>();
+    private List<OrderDetail> orderedProducts = new ArrayList<>();
     private boolean isFinished;
 
     public static Order createNewOrder() {
-        Order order = new Order();
-        return order;
+        return new Order();
     }
 
     public List<OrderDetail> getOrderedProducts() {
@@ -26,14 +25,14 @@ public class Order {
     
     public void addToBasket(Product product, int quantity) {
 
-        int summedQuantity;
-        boolean quantitySmallerThanStock;
+        int summedQuantityOfSameProducts;
+        boolean quantityExceedsStock;
         boolean isInBasket;
 
-        summedQuantity = checkSummedQuantity(product, quantity);
-        quantitySmallerThanStock = checkIfDesiredQuantitySmallerThanStock(product, summedQuantity);
+        summedQuantityOfSameProducts = checkSummedQuantity(product, quantity);
+        quantityExceedsStock = checkIfDesiredQuantityExceedsStock(product, summedQuantityOfSameProducts);
 
-        if (!quantitySmallerThanStock) {
+        if (quantityExceedsStock) {
             return;
         }
 
@@ -50,12 +49,16 @@ public class Order {
 
     private int checkSummedQuantity(Product product, int quantity) {
 
+        if (orderedProducts.isEmpty()){
+            return quantity;
+        }
+
         for (OrderDetail detail : orderedProducts) {
             if (detail.getProduct().equals(product)) {
                  return detail.getQuantity() + quantity;
             }
         }
-        return 0;
+        return quantity;
     }
 
     private boolean updateIfAlreadyInBasket(Product product, int quantity) {
@@ -68,13 +71,26 @@ public class Order {
         return false;
     }
 
-    public boolean checkIfDesiredQuantitySmallerThanStock(Product product, int quantity) {
+    private boolean checkIfDesiredQuantityExceedsStock(Product product, int quantity) {
         int index = Bookstore.products.indexOf(product);
-        if (Bookstore.products.get(index).getStock() >= quantity) {
-            return true;
-        }
-        return false;
+        return Bookstore.products.get(index).getStock() < quantity;
     }
 
 
+    public void removeFromBasket(Product product, int quantity) {
+
+        int qunatityAfterRemoval;
+        
+        for (OrderDetail detail : orderedProducts) {
+            if (detail.getProduct().equals(product)) {
+                qunatityAfterRemoval = detail.getQuantity() - quantity;
+                if (qunatityAfterRemoval <= 0){
+                    orderedProducts.remove(detail);
+                    return;
+                }
+                detail.setQuantity(qunatityAfterRemoval);
+                return;
+            }
+        }
+    }
 }

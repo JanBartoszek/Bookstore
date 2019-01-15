@@ -41,4 +41,12 @@ public class User {
         currentOrder.addToBasket(product, quantity);
     }
 
+    public void removeFromCurrentOrder(Product product, int quantity){
+        currentOrder.removeFromBasket(product, quantity);
+    }
+
+    public void commitCurrentOrder(Order currentOrder){
+
+    }
+
 }

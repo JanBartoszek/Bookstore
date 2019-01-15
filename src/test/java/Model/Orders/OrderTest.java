@@ -46,16 +46,6 @@ class OrderTest {
         assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getProduct(), book1);
         assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getQuantity(), 5);
         assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 1);
-//
-//        user.addToCurrentOrder(book1, 5);
-//        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getQuantity(), 10);
-//
-//        user.addToCurrentOrder(movie1, 5);
-//        assertEquals(user.getCurrentOrder().getOrderedProducts().get(1).getProduct(), movie1);
-//
-//        user.addToCurrentOrder(book1, 500);
-//        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getQuantity(), 10);
-
     }
 
     @Test
@@ -92,5 +82,95 @@ class OrderTest {
 
         assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 2);
     }
+
+    @Test
+    void addOneItemThatExceedsStock(){
+
+        Bookstore.products.add(book1);
+
+        user.createNewOrder();
+        user.addToCurrentOrder(book1, 500);
+
+        assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 0);
+    }
+
+    @Test
+    void addOneItemThatHasQuantitySmallerThanStockAndSecondThatExceedsStock(){
+
+        Bookstore.products.add(book1);
+
+        user.createNewOrder();
+        user.addToCurrentOrder(book1, 5);
+        user.addToCurrentOrder(book1, 500);
+
+        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getProduct(), book1);
+        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getQuantity(), 5);
+        assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 1);
+    }
+
+    @Test
+    void removeOneItemFromBasketIfValueAfterRemovalIsZero(){
+
+        Bookstore.products.add(book1);
+
+        user.createNewOrder();
+        user.addToCurrentOrder(book1, 5);
+
+        user.removeFromCurrentOrder(book1, 5);
+
+        assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 0);
+
+    }
+
+    @Test
+    void removeOneItemFromBasketIfValueAfterRemovalIsBelowZero(){
+
+        Bookstore.products.add(book1);
+
+        user.createNewOrder();
+        user.addToCurrentOrder(book1, 5);
+
+        user.removeFromCurrentOrder(book1, 10);
+
+        assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 0);
+
+    }
+
+    @Test
+    void removeOneItemFromBasketIfValueAfterRemovalIsAboveZero(){
+
+        Bookstore.products.add(book1);
+
+        user.createNewOrder();
+        user.addToCurrentOrder(book1, 5);
+
+        user.removeFromCurrentOrder(book1, 2);
+
+        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getProduct(), book1);
+        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getQuantity(), 3);
+        assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 1);
+
+    }
+
+    @Test
+    void removeFewItems(){
+
+        Bookstore.products.add(book1);
+        Bookstore.products.add(movie1);
+
+        user.createNewOrder();
+        user.addToCurrentOrder(book1, 5);
+        user.addToCurrentOrder(movie1, 5);
+
+        user.removeFromCurrentOrder(book1, 2);
+        user.removeFromCurrentOrder(movie1, 5);
+
+        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getProduct(), book1);
+        assertEquals(user.getCurrentOrder().getOrderedProducts().get(0).getQuantity(), 3);
+        assertEquals(user.getCurrentOrder().getOrderedProducts().size(), 1);
+
+    }
+
+
 
 }
